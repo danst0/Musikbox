@@ -1,2 +1,4 @@
 *
 !.gitignore
+!*.m3u
+!*.sh
