@@ -579,6 +579,9 @@ class Visualizer_App:
             self.eos.mpdaemon.status()
         except mpd.ConnectionError as e:
             self.eos.connect_mpd()
+        except IOError as e:
+            print(e, 'Error occured and caught')
+            self.eos.connect_mpd()
         if 'song' in self.eos.mpdaemon.status():
             return self.eos.mpdaemon.status()['song']
         else:
@@ -728,7 +731,7 @@ class Music_App:
         """Register for events with EOS, ..."""
         self.eos = eos
         self.app_icon = 'Musik'
-        self.playlists = ['Kinder', 'Spaß', 'Ruhig', 'Emilia', 'Klassik', 'Beethoven Symphonien']
+        self.playlists = ['Kinder vom Kleistpark', 'Kinder vom Kleistpark 2', 'Kinder', 'Spaß', 'Ruhig', 'Emilia', 'Klassik', 'Beethoven Symphonien']
         try:
             self.eos.mpdaemon.update()
         except:
@@ -755,6 +758,9 @@ class Music_App:
             self.eos.mpdaemon.status()
         except mpd.ConnectionError as e:
             self.eos.connect_mpd()
+        except IOError as e:
+            print(e, 'Error occured and caught')
+            self.eos.connect_mpd()
 #         print(self.eos.mpdaemon.status())
         return self.eos.mpdaemon.status()['state']
 
@@ -762,6 +768,9 @@ class Music_App:
         try:
             self.eos.mpdaemon.status()
         except mpd.ConnectionError as e:
+            self.eos.connect_mpd()
+        except IOError as e:
+            print(e, 'Error occured and caught')    
             self.eos.connect_mpd()
         return self.eos.mpdaemon.status()['random']
 
@@ -783,7 +792,9 @@ class Music_App:
             self.eos.connect_mpd()
             if not repeat:
                 self.play_music(repeat=True)
-        
+        except Exception as e:
+            print "Unexpected error:", e
+            
     def pause_music(self, repeat=False):
         try:
             self.eos.mpdaemon.pause()
@@ -791,6 +802,8 @@ class Music_App:
             self.eos.connect_mpd()
             if not repeat:
                 self.pause_music(repeat=True)
+        except Exception as e:
+            print "Unexpected error:", e
     
     def stop_music(self, repeat=False):
         try:
