@@ -793,7 +793,7 @@ class Music_App:
             if not repeat:
                 self.play_music(repeat=True)
         except Exception as e:
-            print "Unexpected error:", e
+            print("Unexpected error:", e)
             
     def pause_music(self, repeat=False):
         try:
@@ -803,12 +803,12 @@ class Music_App:
             if not repeat:
                 self.pause_music(repeat=True)
         except Exception as e:
-            print "Unexpected error:", e
+            print("Unexpected error:", e)
     
     def stop_music(self, repeat=False):
         try:
             self.eos.mpdaemon.clear()
-        except mpd.ConnectionError as e:
+        except:
             self.eos.connect_mpd()
             if not repeat:
                 self.stop_music(repeat=True)
